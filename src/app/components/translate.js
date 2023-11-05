@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useRef, useState} from 'react';
 import axios from 'axios';
 import {apiKey} from "@/app/components/summarize";
 import LoadingBar from 'react-top-loading-bar'
@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Translate(props) {
 
-    const notify = () => toast.error('Error! Please Try Again', {
+    const notify = (errorMessage = "Error! Please Try Again!") => toast.error(errorMessage, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -31,19 +31,26 @@ function Translate(props) {
     const [audioUrl, setAudioUrl] = useState("");
     const [showResultsModal, setShowResultsModal] = useState(false)
     const [summary, setSummary] = useState("");
-    const [error, setError] = useState("")
+    const [error, setError] = useState("Error! Please Try Again")
+    const fileInputRef = useRef();
 
 
     const handleFileChange = (e) => {
         const file = e.target.files[0]
-        setAudioFile(file);
-        console.log('File:' +file)
+        console.log(file)
+        if(!(file.type==="audio/wav" || file.type==="audio/mpeg")){
+            fileInputRef.current.value=null
+            notify("File Type MisMatched")
+            setBtnToggle(true)
+            setAudioUrl("")
+            return
+        }
         if (file) {
             const url = URL.createObjectURL(file);
             setAudioUrl(url);
             console.log('test:' + url)
         }
-
+        setAudioFile(file);
         setBtnToggle(false)
     };
 
@@ -57,12 +64,6 @@ function Translate(props) {
                 setTranscription(transcription);
                 if(transcription!=null) {
                     await summarizeText(transcription)
-                }else{
-                    notify();
-                    setTimeout(function() {
-                        window.location.reload();
-                    }, 5000);
-
                 }
             } catch (error) {
                 console.error('Error transcribing audio:', error);
@@ -95,12 +96,21 @@ function Translate(props) {
             if (data.text) {
                 return data.text;
             } else {
-                throw new Error('Transcription not found in response');
+                throw new Error('Transcription not found in responses');
             }
         } catch (error) {
             console.log(error)
-            setError(error)
-
+            if(error.response && error.response.status===401){
+                notify("API Request Failed!")
+            }
+            else if(error.response && error.response.status===429){
+                notify("Rate Limit Exceed!!! Please Try Again Later!")
+            }else {
+                notify()
+                setTimeout(function () {
+                    window.location.reload()
+                }, 5000)
+            }
         }
     };
 
@@ -114,7 +124,7 @@ function Translate(props) {
                         {
                             role: "system",
                             content:
-                                "Summarize it in one-third in points(output in markdown format): " +
+                                "The given text is from call recording. Summarize it in one-third in points. Extract short key insights from call recordings text.(output in markdown format): " +
                                 transcription,
                         },
                     ],
@@ -134,10 +144,16 @@ function Translate(props) {
             setBtnToggle(false)
         } catch (error) {
             console.error("API request failed", error);
-            notify();
-            setTimeout(function() {
-                window.location.reload();
-            }, 5000);
+
+
+            if(error.response && error.response.status===429){
+                notify("Rate Limit Exceed!!! Please Try Again Later!")
+            }else {
+                notify()
+                setTimeout(function() {
+                    window.location.reload();
+                }, 5000);
+            }
         }
     };
 
@@ -174,11 +190,11 @@ function Translate(props) {
             </div>
             <div className="flex justify-center items-center text-center p-4">
                 <p className="text-gray-400 sm:text-xl">
-                    Now, understand the call recordings in only some lines.
+                    Extract key insights from call recordings!
                 </p>
             </div>
             <div className="flex sm:mt-32 m-20 mb-0 justify-center items-center text-center">
-            <input className="file:bg-cyan-950 file:rounded-2xl file:shadow-black file:shadow-sm sm:file:px-14 file:px-3 file:py-5 sm:file:py-7 file:text-cyan-50 file:border-0 text-cyan-50 sm:text-3xl sm:border-b-2 border-b border-amber-50 hover:file:bg-cyan-900 file:duration-200" type="file" accept=".wav,.mp3" onChange={handleFileChange} />
+            <input ref={fileInputRef} className="file:bg-cyan-950 file:rounded-2xl file:shadow-black file:shadow-sm sm:file:px-14 file:px-3 file:py-5 sm:file:py-7 file:text-cyan-50 file:border-0 text-cyan-50 sm:text-3xl sm:border-b-2 border-b border-amber-50 hover:file:bg-cyan-900 file:duration-200" type="file" accept=".wav,.mp3" onChange={handleFileChange} />
 
             </div>
             <div className="flex gap-3 mx-auto text-cyan-50 text-xl my-5 justify-center items-center">
