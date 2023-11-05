@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Welcome to CALL SUMMARIZER!
 
-## Getting Started
+Hi! 
+**Call Summarizer** is a web app to summarize your call into the key insights to understand within some lines only. I have used **Next JS** in this project. I've harnessed the power of OpenAI's APIs for both speech-to-text and text summarization. OpenAI offers exceptional capabilities that enhance our app's functionality.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Let me give you an overview of how 'Call Summarizer' works.**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Upload audio files
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+-   "To get started, users can upload audio files, but we only accept WAV or MP3 formats."
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+-   "If a user tries to upload the wrong file type, a helpful error popup appears."
 
-## Learn More
+-   "We provide an audio player to allow users to verify the correctness of the uploaded audio."
 
-To learn more about Next.js, take a look at the following resources:
+-   "The 'Summarize' button is disabled until the user selects a correct audio file."
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Summarization Process
 
-## Deploy on Vercel
+- "When the user clicks '**Summarize this call recording button**,' a modal popup appears in the center of the screen."
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+"I've also added a 'Convert Next' button, which streamlines the process of summarizing multiple audio files."
+"Our app is designed with responsive design in mind, ensuring it works seamlessly on various devices and screen sizes."
+
+# Conclusion
+- In conclusion, 'Call Summarizer' simplifies the process of summarizing call recordings, thanks to OpenAI's APIs and my user-friendly design.
+
+
+
+## Some Images of Output
+
+![enter image description here](https://github.com/mdShadik/call-sum/assets/96940182/b2faf03b-7414-426a-85c2-ca8c9002803c)
+
+![enter image description here](https://github.com/mdShadik/call-sum/assets/96940182/c2377ac6-bae9-4af3-9fd9-27718c7901e0)
+
+
+![enter image description here](https://github.com/mdShadik/call-sum/assets/96940182/2efb00b2-6b48-48f2-a660-4f76aea5245a)
