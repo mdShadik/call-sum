@@ -32,11 +32,11 @@ function Translate() {
     const [showResultsModal, setShowResultsModal] = useState(false)
     const [summary, setSummary] = useState("");
     const fileInputRef = useRef();
+    const [uploadBtnToggle, setUploadBtnToggle] = useState(false);
 
 
     const handleFileChange = (e) => {
         const file = e.target.files[0]
-        console.log(file)
         if(!(file.type==="audio/wav" || file.type==="audio/mpeg")){
             fileInputRef.current.value=null
             notify("File Type MisMatched")
@@ -58,6 +58,7 @@ function Translate() {
             const formData = new FormData();
             formData.append('file', audioFile);
             formData.append('model', 'whisper-1')
+            setUploadBtnToggle(true)
             try {
                 const transcription = await transcribeAudio(formData);
                 setTranscription(transcription);
@@ -141,6 +142,7 @@ function Translate() {
             setSummary(response.data.choices[0].message.content);
             setShowResultsModal(true)
             setBtnToggle(false)
+            setUploadBtnToggle(false)
         } catch (error) {
             console.error("API request failed", error);
 
@@ -163,7 +165,7 @@ function Translate() {
         <div>
             <Modal show={showResultsModal} setShow={setShowResultsModal}>
                 <div className="flex flex-col">
-                    <div className="flex gap-3 mx-auto text-xl sm:mt-0 mt-20 justify-center items-center">
+                    <div className="flex gap-3 mx-auto text-xl mt-20 justify-center items-center">
                         <div className="text-cyan-50">Listen</div>
                         <AudioPlayer audioUrl={audioUrl} />
                     </div>
@@ -193,11 +195,11 @@ function Translate() {
                 </p>
             </div>
             <div className="flex sm:mt-32 m-20 mb-0 justify-center items-center text-center">
-            <input ref={fileInputRef} className="file:bg-cyan-950 file:rounded-2xl file:shadow-black file:shadow-sm sm:file:px-14 file:px-3 file:py-5 sm:file:py-7 file:text-cyan-50 file:border-0 text-cyan-50 sm:text-3xl sm:border-b-2 border-b border-amber-50 hover:file:bg-cyan-900 file:duration-200" type="file" accept=".wav,.mp3" onChange={handleFileChange} />
+            <input ref={fileInputRef} className="file:bg-cyan-950 file:rounded-2xl file:shadow-black file:shadow-sm sm:file:px-14 file:px-3 file:py-5 sm:file:py-7 file:text-cyan-50 file:border-0 text-cyan-50 sm:text-3xl sm:border-b-2 border-b border-amber-50 hover:file:bg-cyan-900 file:duration-200 file:disabled:bg-gray-900 file:disabled:text-gray-400" type="file" accept=".wav,.mp3" disabled={uploadBtnToggle} onChange={handleFileChange} />
 
             </div>
-            <div className="flex gap-3 mx-auto text-cyan-50 text-xl my-5 justify-center items-center">
-                {audioUrl && (<div>Listen</div>)}
+            <div className="flex gap-3 mx-auto text-cyan-50 sm:text-xl my-5 justify-center items-center">
+                {audioUrl && (<div className='text-lg ml-3'>Listen</div>)}
                 <AudioPlayer audioUrl={audioUrl} />
             </div>
 

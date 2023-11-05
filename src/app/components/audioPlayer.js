@@ -9,7 +9,7 @@ function AudioPlayer({audioUrl}) {
         <div>
             {audioUrl && (
                 <div className="audio-player flex justify-center">
-                    <audio className='webkit' ref={audioRef} controls  controlsList="nodownload noplaybackrate">
+                    <audio className='w-48 sm:w-72' ref={audioRef} controls  controlsList="nodownload noplaybackrate">
                         <style>
                             {
                                 `
