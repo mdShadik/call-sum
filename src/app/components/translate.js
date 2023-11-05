@@ -102,9 +102,15 @@ function Translate() {
             console.log(error)
             if(error.response && error.response.status===401){
                 notify("API Request Failed!")
+                setTimeout(function() {
+                    window.location.reload();
+                }, 5000);
             }
             else if(error.response && error.response.status===429){
                 notify("Rate Limit Exceed!!! Please Try Again Later!")
+                setTimeout(function() {
+                    window.location.reload();
+                }, 5000);
             }else {
                 notify()
                 setTimeout(function () {
@@ -151,7 +157,7 @@ function Translate() {
                 notify("Rate Limit Exceed!!! Please Try Again Later!")
                 setTimeout(function() {
                     window.location.reload();
-                }, 5000);
+                }, 1000);
             }else {
                 notify()
                 setTimeout(function() {
