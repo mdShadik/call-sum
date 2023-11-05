@@ -1,10 +1,15 @@
 'use client'
-import Summarizer from "./components/summarize";
+import Header from "@/app/components/header";
+import Translate from "@/app/components/translate";
+
 
 export default function Home() {
+
+
   return (
     <div>
-      <Summarizer />
+        <Header />
+        <Translate  />
     </div>
   );
 }
