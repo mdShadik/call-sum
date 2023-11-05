@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function Translate(props) {
+function Translate() {
 
     const notify = (errorMessage = "Error! Please Try Again!") => toast.error(errorMessage, {
         position: "top-right",
@@ -31,7 +31,6 @@ function Translate(props) {
     const [audioUrl, setAudioUrl] = useState("");
     const [showResultsModal, setShowResultsModal] = useState(false)
     const [summary, setSummary] = useState("");
-    const [error, setError] = useState("Error! Please Try Again")
     const fileInputRef = useRef();
 
 
@@ -124,7 +123,7 @@ function Translate(props) {
                         {
                             role: "system",
                             content:
-                                "The given text is from call recording. Summarize it in one-third in points. Extract short key insights from call recordings text.(output in markdown format): " +
+                                "The given text is from call recording. Summarize it in short in one-third in not more than 4 points. Extract short key insights from call recordings text.(output in markdown format): " +
                                 transcription,
                         },
                     ],
@@ -190,7 +189,7 @@ function Translate(props) {
             </div>
             <div className="flex justify-center items-center text-center p-4">
                 <p className="text-gray-400 sm:text-xl">
-                    Extract key insights from call recordings!
+                    Extract key insights from your call recordings!
                 </p>
             </div>
             <div className="flex sm:mt-32 m-20 mb-0 justify-center items-center text-center">

@@ -1,6 +1,5 @@
 import React from "react";
 import Markdown from "react-markdown";
-import Link from "next/link";
 import {ArrowLongRightIcon} from "@heroicons/react/20/solid";
 
 const ResultsModal = ({summary, transcription}) => {

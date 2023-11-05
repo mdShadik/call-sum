@@ -1,9 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 
 function AudioPlayer({audioUrl}) {
 
     const audioRef = useRef();
-    const [barColor, setBarColor] = useState('#839cad')
 
 
     return (
