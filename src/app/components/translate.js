@@ -149,6 +149,9 @@ function Translate() {
 
             if(error.response && error.response.status===429){
                 notify("Rate Limit Exceed!!! Please Try Again Later!")
+                setTimeout(function() {
+                    window.location.reload();
+                }, 5000);
             }else {
                 notify()
                 setTimeout(function() {
