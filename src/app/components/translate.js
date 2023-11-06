@@ -157,7 +157,7 @@ function Translate() {
                 notify("Rate Limit Exceed!!! Please Try Again Later!")
                 setTimeout(function() {
                     window.location.reload();
-                }, 1000);
+                }, 5000);
             }else {
                 notify()
                 setTimeout(function() {

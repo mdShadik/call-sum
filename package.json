@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "axios": "^1.6.0",
     "next": "14.0.0",
     "nextjs-progressloader": "^0.2.3",
     "nextjs-toploader": "^1.6.4",
