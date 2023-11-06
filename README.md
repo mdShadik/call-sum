@@ -4,6 +4,12 @@ Hi!
 **Call Summarizer** is a web app to summarize your call into the key insights to understand within some lines only. I have used **Next JS** in this project. I've harnessed the power of OpenAI's APIs for both speech-to-text and text summarization. OpenAI offers exceptional capabilities that enhance our app's functionality.
 
 
+## Demo
+- [Click here](https://callsum.mdshadik.me/) **For demo**
+
+
+
+
 **Let me give you an overview of how 'Call Summarizer' works.**
 
 ## Upload audio files
